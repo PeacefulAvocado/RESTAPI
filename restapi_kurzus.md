@@ -10,6 +10,9 @@ A REST API alapelvei Roy Fielding "A megosztott hipermediás reprezentációk el
 
 A REST API-k előnyei közé tartozik a könnyű skálázhatóság, az egyszerűség, a platformfüggetlenség és a könnyű érthetőség. Ez a módszer nagyon elterjedt a webes alkalmazások fejlesztésében, és ma már számos olyan szolgáltatás, alkalmazás és webhely használja, amelyek lehetővé teszik a felhasználók számára a különböző adatok elérését és kezelését.
 
+![RESTAPI DIAGRAM](courseimages/representational-state-transfer-diagram_gray-e1615546557211.png)
+
+
 ## Az API-ok szerepe a modern webfejlesztésben
 
 Az API-k (alkalmazásprogramozási interfészek) nagyon fontos szerepet töltenek be a modern webfejlesztésben, és számos ok miatt alapvető fontosságúvá váltak:
