@@ -1,4 +1,4 @@
-**REST API kurzus**
+ # REST API kurzus
 
 # Bevezetés a REST API-ba
 
@@ -13,7 +13,7 @@ A REST API-k előnyei közé tartozik a könnyű skálázhatóság, az egyszerű
 ![RESTAPI DIAGRAM](courseimages/representational-state-transfer-diagram_gray-e1615546557211.png)
 
 
-## Az API-ok szerepe a modern webfejlesztésben
+## Az API-ok szerepe a modern webfejlesztésben 
 
 Az API-k (alkalmazásprogramozási interfészek) nagyon fontos szerepet töltenek be a modern webfejlesztésben, és számos ok miatt alapvető fontosságúvá váltak:
 
@@ -111,39 +111,6 @@ A különböző HTTP metódusokat (GET, POST, PUT, DELETE stb.) megfelelően kel
 ## Válaszok elküldése:
 A backendnek megfelelő válaszokat kell küldenie a kérésekre, például JSON vagy XML formátumban az adatokkal és az állapotkóddal együtt.
 
-```php
-<?php
-// Felhasználók lekérdezése
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && $_SERVER['REQUEST_URI'] === '/users') {
-    // Felhasználók lekérése adatbázisból vagy más forrásból
-    $users = fetchUsersFromDatabase();
-    // Válasz küldése
-    header('Content-Type: application/json');
-    echo json_encode($users);
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $_SERVER['REQUEST_URI'] === '/users') {
-    // Új felhasználó létrehozása
-    $requestData = json_decode(file_get_contents('php://input'), true);
-    // Felhasználó létrehozása az adatbázisban vagy más forrásban
-    createUserInDatabase($requestData);
-    // Sikeres válasz küldése
-    http_response_code(201);
-    echo json_encode(array("message" => "Felhasználó létrehozva"));
-} elseif ($_SERVER['REQUEST_METHOD'] === 'GET' && preg_match('/\/users\/(\d+)/', $_SERVER['REQUEST_URI'], $matches)) {
-    // Egy adott felhasználó lekérése
-    $userId = $matches[1];
-    // Felhasználó lekérése az adatbázisból vagy más forrásból
-    $user = fetchUserByIdFromDatabase($userId);
-    // Ha a felhasználó nem található, hibaüzenet küldése
-    if (!$user) {
-        http_response_code(404);
-        echo json_encode(array("message" => "Felhasználó nem található"));
-        exit();
-    }
-    // Válasz küldése
-    header('Content-Type: application/json');
-    echo json_encode($user);
-}
-// További elérési pontok kezelése...
-?>
-
-```
+# Gyakorlati mintafeladat
+## API készítése
+Az első feladat egy egyszerű API megírása. A jelenlegi példában egy random jelszó generátort kell készíteni.

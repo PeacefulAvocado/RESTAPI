@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Példa</title>
     <script>
-        const response = await fetch("../api/password.php")
-        .then(data => {document.getElementById('jelszo').value = data})
+    async function api() {
+        const response = await fetch("../api/password.php");
+        const data = await response.json();
+        document.getElementById('ujjelszo').innerText = data.password;
+    }
     </script>
 </head>
 <body>
-    <input type="button" name="Jelszo" id="jelszo" onclick="api()">
+    <input type="button" value="Jelszó generálása" name="Jelszo" id="jelszo" onclick="api()">
+    <p id="ujjelszo"></p>
 </body>
 </html>

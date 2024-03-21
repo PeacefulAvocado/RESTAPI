@@ -1,11 +1,8 @@
 <?php
-    if($_SERVER['REQUEST_METHOD'] == 'GET' && $_SERVER['REQUEST_URI'] === '/password') {
-
         $password = generate_random_string();
 
         header('Content-Type: application/json');
-        echo json_encode($password);
-    }
+        echo json_encode(['password' => $password]);
 
     function generate_random_string($length = 12) {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?_-#&@';
