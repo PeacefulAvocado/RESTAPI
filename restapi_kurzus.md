@@ -1,24 +1,26 @@
  # REST API kurzus
 # Tartalomjegyzék
-1. [Bevezetés a REST API-ba](#bevezetés-a-rest-api-ba)
-   - [Mi az a REST API](#mi-az-a-rest-api)
-   - [Az API-ok szerepe a modern webfejlesztésben](#az-api-ok-szerepe-a-modern-webfejlesztésben)
-   - [Alapelvek és jellemzők](#alapelvek-és-jellemzők)
-2. [A Backend felépítése](#a-backend-felépítése)
-   - [Környezet beállítása](#környezet-beállítása)
-   - [MYSQL adatbázis létrehozása](#mysql-adatbázis-létrehozása)
-   - [PHP backend kapcsolása az adatbázishoz](#php-backend-kapcsolása-az-adatbázishoz)
-   - [Elérési pontok meghatározása](#elérési-pontok-meghatározása)
-   - [Kérések kezelése a backend oldalon](#kérések-kezelése-a-backend-oldalon)
-   - [Paraméterek és adatok kezelése](#paraméterek-és-adatok-kezelése)
-   - [HTTP metódusok kezelése](#http-metódusok-kezelése)
-   - [Válaszok elküldése](#válaszok-elküldése)
-3. [Frontend felépítése](#frontend-felépítése)
-   - [A projekt inicializálása](#a-projekt-inicializálása)
-   - [Kérések küldése az API-hoz](#kérések-küldése-az-api-hoz)
-4. [Gyakorlati mintafeladat](#gyakorlati-mintafeladat)
-   - [Egyszerű példa](#egyszerű-példa)
-   - [Összetett példa](#összetett-példa)
+- [REST API kurzus](#rest-api-kurzus)
+- [Tartalomjegyzék](#tartalomjegyzék)
+- [Bevezetés a REST API-ba](#bevezetés-a-rest-api-ba)
+  - [Mi az a REST API](#mi-az-a-rest-api)
+  - [Az API-ok szerepe a modern webfejlesztésben](#az-api-ok-szerepe-a-modern-webfejlesztésben)
+  - [Alapelvek és jellemzők](#alapelvek-és-jellemzők)
+- [A Backend felépítése](#a-backend-felépítése)
+  - [Környezet beállítása](#környezet-beállítása)
+  - [MYSQL adatbázis létrehozása](#mysql-adatbázis-létrehozása)
+  - [PHP backend kapcsolása az adatbázishoz](#php-backend-kapcsolása-az-adatbázishoz)
+  - [Elérési pontok meghatározása](#elérési-pontok-meghatározása)
+  - [Kérések kezelése a backend oldalon](#kérések-kezelése-a-backend-oldalon)
+  - [Paraméterek és adatok kezelése](#paraméterek-és-adatok-kezelése)
+  - [HTTP metódusok kezelése](#http-metódusok-kezelése)
+  - [Válaszok elküldése](#válaszok-elküldése)
+- [Frontend felépítése](#frontend-felépítése)
+  - [A projekt inicializálása](#a-projekt-inicializálása)
+  - [Kérések küldése az API-hoz](#kérések-küldése-az-api-hoz)
+- [Gyakorlati mintafeladat](#gyakorlati-mintafeladat)
+  - [Egyszerű példa](#egyszerű-példa)
+  - [Összetett példa](#összetett-példa)
 
 # Bevezetés a REST API-ba
 
@@ -195,49 +197,49 @@ Az első feladat egy egyszerű API megírása, ehhez adatbázist sem fogunk hasz
 <br>
 1. Hozzunk létre egy <i>"api"</i> nevű mappát és benne egy <i>"password.php"</i> nevű fájlt.
 2. Írjunk egy egyszerű random jelszót generáló függvény és hívjuk meg.
-```php
-function generate_random_string($length = 12) {
-        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?_-#&@';
-        $random_string = '';
-    
-        for ($i = 0; $i < $length; $i++) {
-            $random_string .= $characters[rand(0, strlen($characters) - 1)];
+    ```php
+    function generate_random_string($length = 12) {
+            $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!?_-#&@';
+            $random_string = '';
+        
+            for ($i = 0; $i < $length; $i++) {
+                $random_string .= $characters[rand(0, strlen($characters) - 1)];
+            }
+        
+            return $random_string;
         }
-    
-        return $random_string;
+    ```
+    ```php
+    if ($_SERVER['REQUEST_METHOD'] == 'GET') // lefut, ha a metódus GET
+    {
+        $password = generate_random_string();
+        header('Content-Type: application/json'); // a visszaadott érték json formátumú
+        echo json_encode(['password' => $password]); // válasz (response)
     }
-```
-```php
-if ($_SERVER['REQUEST_METHOD'] == 'GET') // lefut, ha a metódus GET
-{
-    $password = generate_random_string();
-    header('Content-Type: application/json'); // a visszaadott érték json formátumú
-    echo json_encode(['password' => $password]); // válasz (response)
-}
-```
+    ```
 3. Írjuk meg a REST API-t. A JavaScript fetch függvényét használva indíthatunk kérelmeket (HTTPRequest) és újratöltés nélkül változtathatjuk az oldalt.
-```html
-<!DOCTYPE html>
-<html lang="hu">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Példa</title>
-    <script>
-    async function api() { // async, mert meg kell várnia, amíg a meghívott fájl lefut és visszaküldi a választ
-        const response = await fetch("../api/password.php", {method: "GET"}); // meghívja az API-t GET metódussal
-        const data = await response.json(); // eltárolja a választ
-        document.getElementById('ujjelszo').innerText = data.password; // kiírja a kapott adatokból azt, ami kell
-    }
-    </script>
-</head>
-<body>
-    <input type="button" value="Jelszó generálása" name="Jelszo" id="jelszo" onclick="api()">
-    <p id="ujjelszo"></p>
-</body>
-</html>
-```
+    ```html
+    <!DOCTYPE html>
+    <html lang="hu">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Példa</title>
+        <script>
+        async function api() { // async, mert meg kell várnia, amíg a meghívott fájl lefut és visszaküldi a választ
+            const response = await fetch("../api/password.php", {method: "GET"}); // meghívja az API-t GET metódussal
+            const data = await response.json(); // eltárolja a választ
+            document.getElementById('ujjelszo').innerText = data.password; // kiírja a kapott adatokból azt, ami kell
+        }
+        </script>
+    </head>
+    <body>
+        <input type="button" value="Jelszó generálása" name="Jelszo" id="jelszo" onclick="api()">
+        <p id="ujjelszo"></p>
+    </body>
+    </html>
+    ```
 Ha szükséges, a kész feladat megtalálható a kurzus mappájában.
 ## Összetett példa
 Most, hogy az alapok megvannak, jöhet egy összetettebb feladat.<br>Egy könyvtárkezelő oldalt kell írni, amihez adatbázis is tartozik. 
@@ -248,4 +250,66 @@ Most, hogy az alapok megvannak, jöhet egy összetettebb feladat.<br>Egy könyvt
 1. Első feladat az adatbázis létrehozása. A fenti leírás szerint csinálja végig az adatbázis létrehozását és adatok importálását.<br>
 Az importálandó fájl itt található: 
 [SQL](2.feladat/books.sql) (ha nem működik, megtalálja a kurzus mellett a mappában)
-2. A kezelő API megírása minden metódusra.
+2. Kapcsolódás az adatbázishoz.
+    ```php
+    // adatbázis kapcsolása
+    // Adatbázis kapcsolódási adatok
+    $servername = "localhost";
+    $username = "root"; // Alapértelmezett felhasználónév XAMPP esetén
+    $password = ""; // Alapértelmezett jelszó XAMPP esetén
+    $database = "books"; // Az ön adatbázisának neve
+    // Kapcsolódás az adatbázishoz
+    $conn = new mysqli($servername, $username, $password, $database);
+    ```
+3. Endpointok kezelése
+    ```php
+    $filePath = explode('/', $_SERVER['REQUEST_URI']);
+    ```
+4. A kezelő API megírása minden metódusra:
+    - GET (összes): Ha a kereső mező üres marad, akkor az összes könyvet kilistázza.
+    - GET (author és title): Keresés szerző vagy cím alapján. Ugyanúgy kell mindkettőt. (Példa: author)
+      - **API:**
+        ```php
+        else  if ($_SERVER['REQUEST_METHOD'] == "GET" && $filePath[count($filePath) - 2] == "author") // ha az endpoint books.php/author/valami akkor ez fut le (valami a keresett szöveg)
+        {
+        $sql = "SELECT * FROM books where author like '%".$filePath[count($filePath) - 1]."%'";
+        $result = $conn->query($sql);
+        $books = array();
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $books[] = $row;
+            }
+        }
+        header('Content-Type: application/json');
+        http_response_code();
+        echo json_encode($books);
+        }   
+        ```
+      - **Javascript:**
+        ```javascript
+        async function searchAuthor()
+        {
+            //eredményt tartalmazó div törlése ha már létezik
+            var existingDiv = document.getElementById("div");
+            if (existingDiv) {
+                existingDiv.remove(); 
+            }
+            //eredményt tartalmazó div létrehozása
+            var div = document.createElement('div');
+            div.setAttribute("id", "div");
+            document.body.appendChild(div);
+            //endpoint és http request
+            const response = await fetch("../api/books.php/author/" + document.getElementById("sAu").value, {method: "GET"});
+            const data = await response.json();
+            //adatok kiírása
+            for (let i = 0; i < data.length; i++)
+            {
+                var p = document.createElement('span');
+                p.appendChild(document.createTextNode("Azonosító: " + data[i].id + " Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
+                var br = document.createElement('br');
+                div.appendChild(p);
+                div.appendChild(br);
+            }
+        }
+        ```
+    - POST: 

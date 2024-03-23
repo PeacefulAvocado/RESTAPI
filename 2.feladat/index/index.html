@@ -5,30 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Könyvkezelő</title>
     <script>
-        async function all()
+        async function searchAuthor()
         {
-            const response = await fetch("../api/books.php", {method: "GET"});
+            var existingDiv = document.getElementById("div");
+            if (existingDiv) {
+                existingDiv.remove();
+            }
+            var div = document.createElement('div');
+            div.setAttribute("id", "div");
+            document.body.appendChild(div);
+            const response = await fetch("../api/books.php/author/" + document.getElementById("sAu").value, {method: "GET"});
             const data = await response.json();
             for (let i = 0; i < data.length; i++)
             {
                 var p = document.createElement('span');
                 p.appendChild(document.createTextNode("Azonosító: " + data[i].id + " Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
                 var br = document.createElement('br');
-                document.body.appendChild(p);
-                document.body.appendChild(br);
+                div.appendChild(p);
+                div.appendChild(br);
             }
         }
 
-        async function searchAuthor()
+        async function searchTitle()
         {
-            if (document.getElementById("sAu").value == "")
-            {
-                all();
+            var existingDiv = document.getElementById("div");
+            if (existingDiv) {
+                existingDiv.remove();
             }
-            else {
-                
+            var div = document.createElement('div');
+            div.setAttribute("id", "div");
+            document.body.appendChild(div);
+            const response = await fetch("../api/books.php/title/" + document.getElementById("sTi").value, {method: "GET"});
+            const data = await response.json();
+            for (let i = 0; i < data.length; i++)
+            {
+                var p = document.createElement('span');
+                p.appendChild(document.createTextNode("Azonosító: " + data[i].id + " Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
+                var br = document.createElement('br');
+                div.appendChild(p);
+                div.appendChild(br);
             }
         }
+
+        async function appendRecord() {
+            const response = await fetch("../api/books.php/insert/" + document.getElementById("aRcim").value+"/"+ document.getElementById("aRszerzo").value+"/"+ document.querySelector('input[name="elerheto"]:checked').value, {method: "POST"});
+            console.log(document.querySelector('input[name="elerheto"]:checked').value)
+            console.log("fasz")
+        }
+        
     </script>
 </head>
 <body>
@@ -41,8 +65,19 @@
         <h1>Keresés cím alapján:</h1>
         <label for="sTi">Cím: </label>
         <input type="text" id = "sTi">
-        <input type="button" value="Keresés">
+        <input type="button" value="Keresés" onclick="searchTitle()">
+        <h1>Új könyv felvétele:</h1>
+        <label for="aRcim">Cím: </label>
+        <input type="text" id = "aRcim">
+        <label for="aRszerzo">Szerző: </label>
+        <input type="text" id = "aRszerzo">
+        <input type="radio" id="available" name="elerheto" value="available">
+        <label for="available">Available</label><br>
+        <input type="radio" id="not_available" name="elerheto" value="not_available">
+        <label for="not_available">Not Available</label><br>
+        <input type="button" value="Felvétel" onclick="appendRecord()">
     </form>
     <h1>Eredmény</h1>
+    
 </body>
 </html>
