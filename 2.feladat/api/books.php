@@ -25,6 +25,10 @@
         header('Content-Type: application/json');
         echo json_encode($books);
     }
+    else  if ($_SERVER['REQUEST_METHOD'] == "GET" && $filePath[count($filePath) - 2] == "author")
+    {
+        
+    }
      // Kapcsolat bezárása
      $conn->close();
 ?>

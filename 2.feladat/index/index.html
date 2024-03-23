@@ -5,27 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Könyvkezelő</title>
     <script>
-        async function osszes()
+        async function all()
         {
             const response = await fetch("../api/books.php", {method: "GET"});
             const data = await response.json();
             for (let i = 0; i < data.length; i++)
             {
                 var p = document.createElement('span');
-                p.appendChild(document.createTextNode("Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
+                p.appendChild(document.createTextNode("Azonosító: " + data[i].id + " Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
                 var br = document.createElement('br');
                 document.body.appendChild(p);
                 document.body.appendChild(br);
             }
         }
+
+        async function searchAuthor()
+        {
+            if (document.getElementById("sAu").value == "")
+            {
+                all();
+            }
+            else {
+                
+            }
+        }
     </script>
 </head>
-<body onload="osszes()">
-    <h1>Keresés</h1>
-    <form>
-        <label for="sAu">Szerző neve: </label>
-        <input type="text" id = "sAu"><br>
+<body>
 
+    <form>
+        <h1>Keresés szerző alapján:</h1>
+        <label for="sAu">Szerző neve: </label>
+        <input type="text" id = "sAu">
+        <input type="button" value="Keresés" onclick="searchAuthor()">
+        <h1>Keresés cím alapján:</h1>
+        <label for="sTi">Cím: </label>
+        <input type="text" id = "sTi">
+        <input type="button" value="Keresés">
     </form>
+    <h1>Eredmény</h1>
 </body>
 </html>
