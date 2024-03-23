@@ -6,7 +6,7 @@
 
 A REST (Representational State Transfer) API egy olyan szoftverarchitektúra, amely lehetővé teszi a kliens és a szerver közötti kommunikációt a HTTP protokollon keresztül. A REST API-k az internetes alkalmazások közötti adatcserét teszik lehetővé, és alapvetően a kérések (HTTP kérések) és válaszok (HTTP válaszok) formájában működnek.
 
-A REST API alapelvei Roy Fielding "A megosztott hipermediás reprezentációk elérésének állapotmentes modellje" című disszertációjából származnak, amelyet 2000-ben írt. Fielding ebben a disszertációban lefektette az ún. REST architektúrális stílusát, amely az internetes protokollok, különösen az HTTP számára alkalmas módot kínál a hálózaton elérhető információk megosztására.
+A REST API alapelvei Roy Fielding "A megosztott hipermediás reprezentációk elérésének állapotmentes modellje" című disszertációjából származnak, amelyet 2000-ben írt. Fielding ebben a disszertációban lefektette az ún. REST architektúrális stílusát, amely az internetes protokollok, különösen a HTTP számára alkalmas módot kínál a hálózaton elérhető információk megosztására.
 
 A REST API-k előnyei közé tartozik a könnyű skálázhatóság, az egyszerűség, a platformfüggetlenség és a könnyű érthetőség. Ez a módszer nagyon elterjedt a webes alkalmazások fejlesztésében, és ma már számos olyan szolgáltatás, alkalmazás és webhely használja, amelyek lehetővé teszik a felhasználók számára a különböző adatok elérését és kezelését.
 
@@ -113,4 +113,4 @@ A backendnek megfelelő válaszokat kell küldenie a kérésekre, például JSON
 
 # Gyakorlati mintafeladat
 ## API készítése
-Az első feladat egy egyszerű API megírása. A jelenlegi példában egy random jelszó generátort kell készíteni.
+Az első feladat egy egyszerű API megírása, ehhez adatbázist sem fogunk használni. A jelenlegi példában egy random jelszó generátort kell készíteni.

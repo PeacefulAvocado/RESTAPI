@@ -1,4 +1,5 @@
 <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'GET')
         $password = generate_random_string();
 
         header('Content-Type: application/json');

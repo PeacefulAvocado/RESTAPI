@@ -7,7 +7,7 @@
     <title>Példa</title>
     <script>
     async function api() {
-        const response = await fetch("../api/password.php");
+        const response = await fetch("../api/password.php", method="get");
         const data = await response.json();
         document.getElementById('ujjelszo').innerText = data.password;
     }
