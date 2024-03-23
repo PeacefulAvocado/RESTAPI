@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Könyvkezelő</title>
+    <script>
+        async function osszes()
+        {
+            const response = await fetch("../api/books.php", {method: "GET"});
+            const data = await response.json();
+            for (let i = 0; i < data.length; i++)
+            {
+                var p = document.createElement('span');
+                p.appendChild(document.createTextNode("Szerző: " + data[i].author + " Cím: " + data[i].title + " Elérhetőség: " + data[i].availability));
+                var br = document.createElement('br');
+                document.body.appendChild(p);
+                document.body.appendChild(br);
+            }
+        }
+    </script>
+</head>
+<body onload="osszes()">
+    <h1>Keresés</h1>
+    <form>
+        <label for="sAu">Szerző neve: </label>
+        <input type="text" id = "sAu"><br>
+
+    </form>
+</body>
+</html>
