@@ -456,7 +456,8 @@ Az importálandó fájl itt található:
 Ezen még lehet javítani, például lehet ellenőrizni az adatok helyességét, de a REST API ezzel kész van.<br>
 Ha szükséges, a kész feladat megtalálható a kurzus mappájában.
 ## Gyakorló feladat
-Az utolsó feladatot önállóan kell elvégezni. A 3.feladat mappában megtalálható a szükséges adatbázis.
+Az utolsó feladatot önállóan kell elvégezni. A 3.feladat mappában megtalálható a szükséges adatbázis. Az importálandó fájl itt található: 
+[SQL](3.feladat/products.sql) (ha nem működik, megtalálja a kurzus mellett a mappában)
 Ebben a feladatban egy áruház raktárkészletét kell kezelnie.
 1. feladat: Adatbázis létrehozása és csatlakozás PHP-val.
 2. feladat: Esztétikus főoldal kialakítása (HTML, CSS)
