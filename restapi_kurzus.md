@@ -252,53 +252,53 @@ Most, hogy az alapok megvannak, jöhet egy összetettebb feladat.<br>Egy könyvt
 Az importálandó fájl itt található: 
 [SQL](2.feladat/books.sql) (ha nem működik, megtalálja a kurzus mellett a mappában)
 2. Form kialaktása:
-```html
-<form>
-        <h1>Keresés szerző alapján:</h1>
-        <label for="sAu">Szerző neve: </label>
-        <input type="text" id="sAu" required>
-        <input type="button" value="Keresés" onclick="searchAuthor()">
-        
-        <h1>Keresés cím alapján:</h1>
-        <label for="sTi">Cím: </label>
-        <input type="text" id="sTi" required>
-        <input type="button" value="Keresés" onclick="searchTitle()">
-        
-        <h1>Új könyv felvétele:</h1>
-        <label for="aRcim">Cím: </label>
-        <input type="text" id="aRcim" required>
-        
-        <label for="aRszerzo">Szerző: </label>
-        <input type="text" id="aRszerzo" required>
-        
-        <input type="radio" id="available" name="elerheto" value="available" required>
-        <label for="available">Available</label><br>
-        
-        <input type="radio" id="not_available" name="elerheto" value="not_available" required>
-        <label for="not_available">Not Available</label><br>
-        
-        <input type="button" value="Felvétel" onclick="appendRecord()">
+    ```html
+    <form>
+            <h1>Keresés szerző alapján:</h1>
+            <label for="sAu">Szerző neve: </label>
+            <input type="text" id="sAu" required>
+            <input type="button" value="Keresés" onclick="searchAuthor()">
+            
+            <h1>Keresés cím alapján:</h1>
+            <label for="sTi">Cím: </label>
+            <input type="text" id="sTi" required>
+            <input type="button" value="Keresés" onclick="searchTitle()">
+            
+            <h1>Új könyv felvétele:</h1>
+            <label for="aRcim">Cím: </label>
+            <input type="text" id="aRcim" required>
+            
+            <label for="aRszerzo">Szerző: </label>
+            <input type="text" id="aRszerzo" required>
+            
+            <input type="radio" id="available" name="elerheto" value="available" required>
+            <label for="available">Available</label><br>
+            
+            <input type="radio" id="not_available" name="elerheto" value="not_available" required>
+            <label for="not_available">Not Available</label><br>
+            
+            <input type="button" value="Felvétel" onclick="appendRecord()">
 
-        <h1>Adat módosítása ID alapján:</h1>
-        <label for="azon">ID: </label>
-        <input type="text" id="azon" required>
-        <label for="newAuthor">Új szerző (ha szükséges): </label>
-        <input type="text" id="newAuthor">
-        <label for="newTitle">Új cím (ha szükséges): </label>
-        <input type="text" id="newTitle">
-        <label for="newTitle">Új elérhetőség (ha szükséges): </label>
-        <input type="radio" id="newavailable" name="newelerheto" value="available" required>
-        <label for="available">Available</label><br>
-        <input type="radio" id="newnot_available" name="newelerheto" value="not_available" required>
-        <label for="not_available">Not Available</label><br>
-        <input type="button" value="Módosítás" onclick="editRecord()">
+            <h1>Adat módosítása ID alapján:</h1>
+            <label for="azon">ID: </label>
+            <input type="text" id="azon" required>
+            <label for="newAuthor">Új szerző (ha szükséges): </label>
+            <input type="text" id="newAuthor">
+            <label for="newTitle">Új cím (ha szükséges): </label>
+            <input type="text" id="newTitle">
+            <label for="newTitle">Új elérhetőség (ha szükséges): </label>
+            <input type="radio" id="newavailable" name="newelerheto" value="available" required>
+            <label for="available">Available</label><br>
+            <input type="radio" id="newnot_available" name="newelerheto" value="not_available" required>
+            <label for="not_available">Not Available</label><br>
+            <input type="button" value="Módosítás" onclick="editRecord()">
 
-        <h1>Törlés ID alapján:</h1>
-        <label for="delID">ID: </label>
-        <input type="number" id="delID" required>
-        <input type="button" value="Törlés" onclick="deleteRecord()">
-    </form>
-```
+            <h1>Törlés ID alapján:</h1>
+            <label for="delID">ID: </label>
+            <input type="number" id="delID" required>
+            <input type="button" value="Törlés" onclick="deleteRecord()">
+        </form>
+    ```
 2. Kapcsolódás az adatbázishoz.
     ```php
     // adatbázis kapcsolása
@@ -458,4 +458,12 @@ Ha szükséges, a kész feladat megtalálható a kurzus mappájában.
 ## Gyakorló feladat
 Az utolsó feladatot önállóan kell elvégezni. A 3.feladat mappában megtalálható a szükséges adatbázis.
 Ebben a feladatban egy áruház raktárkészletét kell kezelnie.
-1. feladat:
+1. feladat: Adatbázis létrehozása és csatlakozás PHP-val.
+2. feladat: Esztétikus főoldal kialakítása (HTML, CSS)
+3. feladat: Termékek lekérdezése és kiírása.
+4. feladat: Keresés.
+5. feladat: Termékek módosítása.
+6. feladat: Termékek törlése.
+   
+Ellenőrizze a bevitt adatok helyességét (pl. mennyiség egész szám stb.)
+Használja a kurzusban tanult módszereket.
