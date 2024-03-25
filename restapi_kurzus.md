@@ -250,6 +250,54 @@ Most, hogy az alapok megvannak, jöhet egy összetettebb feladat.<br>Egy könyvt
 1. Első feladat az adatbázis létrehozása. A fenti leírás szerint csinálja végig az adatbázis létrehozását és adatok importálását.<br>
 Az importálandó fájl itt található: 
 [SQL](2.feladat/books.sql) (ha nem működik, megtalálja a kurzus mellett a mappában)
+2. Form kialaktása:
+```html
+<form>
+        <h1>Keresés szerző alapján:</h1>
+        <label for="sAu">Szerző neve: </label>
+        <input type="text" id="sAu" required>
+        <input type="button" value="Keresés" onclick="searchAuthor()">
+        
+        <h1>Keresés cím alapján:</h1>
+        <label for="sTi">Cím: </label>
+        <input type="text" id="sTi" required>
+        <input type="button" value="Keresés" onclick="searchTitle()">
+        
+        <h1>Új könyv felvétele:</h1>
+        <label for="aRcim">Cím: </label>
+        <input type="text" id="aRcim" required>
+        
+        <label for="aRszerzo">Szerző: </label>
+        <input type="text" id="aRszerzo" required>
+        
+        <input type="radio" id="available" name="elerheto" value="available" required>
+        <label for="available">Available</label><br>
+        
+        <input type="radio" id="not_available" name="elerheto" value="not_available" required>
+        <label for="not_available">Not Available</label><br>
+        
+        <input type="button" value="Felvétel" onclick="appendRecord()">
+
+        <h1>Adat módosítása ID alapján:</h1>
+        <label for="azon">ID: </label>
+        <input type="text" id="azon" required>
+        <label for="newAuthor">Új szerző (ha szükséges): </label>
+        <input type="text" id="newAuthor">
+        <label for="newTitle">Új cím (ha szükséges): </label>
+        <input type="text" id="newTitle">
+        <label for="newTitle">Új elérhetőség (ha szükséges): </label>
+        <input type="radio" id="newavailable" name="newelerheto" value="available" required>
+        <label for="available">Available</label><br>
+        <input type="radio" id="newnot_available" name="newelerheto" value="not_available" required>
+        <label for="not_available">Not Available</label><br>
+        <input type="button" value="Módosítás" onclick="editRecord()">
+
+        <h1>Törlés ID alapján:</h1>
+        <label for="delID">ID: </label>
+        <input type="number" id="delID" required>
+        <input type="button" value="Törlés" onclick="deleteRecord()">
+    </form>
+```
 2. Kapcsolódás az adatbázishoz.
     ```php
     // adatbázis kapcsolása
@@ -265,8 +313,7 @@ Az importálandó fájl itt található:
     ```php
     $filePath = explode('/', $_SERVER['REQUEST_URI']);
     ```
-4. Form kialakítása: 
-5. REST API megírása minden metódusra:
+4. REST API megírása minden metódusra:
     - GET (összes): Ha a kereső mező üres marad, akkor az összes könyvet kilistázza.
     - GET (author és title): Keresés szerző vagy cím alapján. Ugyanúgy kell mindkettőt. (Példa: author)
       - **API:**
@@ -384,3 +431,26 @@ Az importálandó fájl itt található:
             const response = await fetch("../api/books.php/edit/" + document.getElementById('azon').value +"/" + document.getElementById('newTitle').value + "/" + document.getElementById('newAuthor').value + "/" + document.querySelector('input[name="newelerheto"]:checked').value, {method: "PUT"});
         }
         ```
+    - DELETE: Könvvek törlése.
+        - **API:**
+            ```php
+            else if ($_SERVER["REQUEST_METHOD"] == "DELETE")
+            {
+                $id = $filePath[count($filePath) - 1];
+                $sql = "delete from books where id = $id";
+                try {
+                    $conn->query($sql);
+                    http_response_code(201);
+                } catch (Exception $e) {
+                    http_response_code(400);
+                }
+            }
+            ```
+        - **Javascript:**
+            ```javascript
+            async function deleteRecord() {
+                const response = await fetch("../api/books.php/delete/" + document.getElementById("delID").value, {method: "DELETE"})
+            }
+            ```
+Ezen még lehet javítani, például lehet ellenőrizni az adatok helyességét, de a REST API ezzel kész van.<br>
+Ha szükséges, a kész feladat megtalálható a kurzus mappájában.
