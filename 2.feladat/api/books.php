@@ -89,6 +89,17 @@
             http_response_code(400);
         }
     }
+    else if ($_SERVER["REQUEST_METHOD"] == "DELETE")
+    {
+        $id = $filePath[count($filePath) - 1];
+        $sql = "delete from books where id = $id";
+        try {
+            $conn->query($sql);
+            http_response_code(201);
+        } catch (Exception $e) {
+            http_response_code(400);
+        }
+    }
 
      // Kapcsolat bezárása
      $conn->close();

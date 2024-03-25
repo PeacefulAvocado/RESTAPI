@@ -55,6 +55,9 @@
             const response = await fetch("../api/books.php/edit/" + document.getElementById('azon').value +"/" + document.getElementById('newTitle').value + "/" + document.getElementById('newAuthor').value + "/" + document.querySelector('input[name="newelerheto"]:checked').value, {method: "PUT"});
         }
         
+        async function deleteRecord() {
+            const response = await fetch("../api/books.php/delete/" + document.getElementById("delID").value, {method: "DELETE"})
+        }
     </script>
 </head>
 <body>
@@ -99,6 +102,11 @@
         <input type="radio" id="newnot_available" name="newelerheto" value="not_available" required>
         <label for="not_available">Not Available</label><br>
         <input type="button" value="Módosítás" onclick="editRecord()">
+
+        <h1>Törlés ID alapján:</h1>
+        <label for="delID">ID: </label>
+        <input type="number" id="delID" required>
+        <input type="button" value="Törlés" onclick="deleteRecord()">
     </form>
     <h1>Eredmény</h1>
     
