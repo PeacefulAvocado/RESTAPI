@@ -21,6 +21,7 @@
 - [Gyakorlati mintafeladat](#gyakorlati-mintafeladat)
   - [Egyszerű példa](#egyszerű-példa)
   - [Összetett példa](#összetett-példa)
+  - [Gyakorló feladat](#gyakorló-feladat)
 
 # Bevezetés a REST API-ba
 
@@ -454,3 +455,7 @@ Az importálandó fájl itt található:
             ```
 Ezen még lehet javítani, például lehet ellenőrizni az adatok helyességét, de a REST API ezzel kész van.<br>
 Ha szükséges, a kész feladat megtalálható a kurzus mappájában.
+## Gyakorló feladat
+Az utolsó feladatot önállóan kell elvégezni. A 3.feladat mappában megtalálható a szükséges adatbázis.
+Ebben a feladatban egy áruház raktárkészletét kell kezelnie.
+1. feladat:
