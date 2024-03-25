@@ -265,24 +265,25 @@ Az importálandó fájl itt található:
     ```php
     $filePath = explode('/', $_SERVER['REQUEST_URI']);
     ```
-4. A kezelő API megírása minden metódusra:
+4. Form kialakítása: 
+5. REST API megírása minden metódusra:
     - GET (összes): Ha a kereső mező üres marad, akkor az összes könyvet kilistázza.
     - GET (author és title): Keresés szerző vagy cím alapján. Ugyanúgy kell mindkettőt. (Példa: author)
       - **API:**
         ```php
         else  if ($_SERVER['REQUEST_METHOD'] == "GET" && $filePath[count($filePath) - 2] == "author") // ha az endpoint books.php/author/valami akkor ez fut le (valami a keresett szöveg)
         {
-        $sql = "SELECT * FROM books where author like '%".$filePath[count($filePath) - 1]."%'";
-        $result = $conn->query($sql);
-        $books = array();
-        if ($result->num_rows > 0) {
-            while($row = $result->fetch_assoc()) {
-                $books[] = $row;
+            $sql = "SELECT * FROM books where author like '%".$filePath[count($filePath) - 1]."%'";
+            $result = $conn->query($sql);
+            $books = array();
+            if ($result->num_rows > 0) {
+                while($row = $result->fetch_assoc()) {
+                    $books[] = $row;
+                }
             }
-        }
-        header('Content-Type: application/json');
-        http_response_code();
-        echo json_encode($books);
+            header('Content-Type: application/json');
+            http_response_code();
+            echo json_encode($books);
         }   
         ```
       - **Javascript:**
@@ -312,4 +313,74 @@ Az importálandó fájl itt található:
             }
         }
         ```
-    - POST: 
+    - POST: Minden adatot megadva lehet új könyvet felvenni az adatbázisba.
+      - **API:**
+        ```php
+        else if ($_SERVER['REQUEST_METHOD'] == "POST") {
+            $title = $filePath[count($filePath) - 3];
+            $author = $filePath[count($filePath) - 2];
+            $availability = $filePath[count($filePath) - 1];
+            if ($availability == "not_available")
+            {
+                $availability = "not available";
+            }
+            $sql = "INSERT INTO `books` (`title`, `author`, `availability`) VALUES
+            ('$title', '$author', '$availability') ";
+            try {
+                $conn->query($sql);
+                http_response_code(201);
+            } catch (Exception $e) {
+                http_response_code(400);
+            }
+        }
+        ```
+      - **Javascript:**
+        ```javascript
+        async function appendRecord() {
+            const response = await fetch("../api/books.php/insert/" + document.getElementById("aRcim").value+"/"+ document.getElementById("aRszerzo").value+"/"+ document.querySelector('input[name="elerheto"]:checked').value, {method: "POST"});
+        }
+        ```
+    - PUT: ID alapján módosítás.
+      - **API:**
+        ```php
+        else if ($_SERVER['REQUEST_METHOD'] == "PUT")
+        {
+            $title = $filePath[count($filePath) - 3];
+            $author = $filePath[count($filePath) - 2];
+            $availability = $filePath[count($filePath) - 1];
+            $id = $filePath[count($filePath) - 4];
+            //ha üres akkor nem kell változtatni, lekérdezzük az eddigit
+            if ($title == "")
+            {
+                $title = $conn->query("select title from books where id = $id");
+                $title = $title->fetch_assoc()['title'];
+            }
+            if ($author == "")
+            {
+                $author = $conn->query("select author from books where id = $id");
+                $author = $author->fetch_assoc()['author'];
+            }
+            if ($availability == "")
+            {
+                $availability = $conn->query("select availability from books where id = $id");
+                $availability = $availability->fetch_assoc()['availability'];
+            }
+            if ($availability == "not_available")
+            {
+                $availability = "not available";
+            }
+            $sql = "update books set title = '$title', author = '$author', availability = '$availability' where id = $id";
+            try {
+                $conn->query($sql);
+                http_response_code(201);
+            } catch (Exception $e) {
+                http_response_code(400);
+            }
+        }
+        ```
+      - **Javascript:**
+        ```JAVASCRIPT
+        async function editRecord() {
+            const response = await fetch("../api/books.php/edit/" + document.getElementById('azon').value +"/" + document.getElementById('newTitle').value + "/" + document.getElementById('newAuthor').value + "/" + document.querySelector('input[name="newelerheto"]:checked').value, {method: "PUT"});
+        }
+        ```

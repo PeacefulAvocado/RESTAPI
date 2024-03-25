@@ -49,8 +49,10 @@
 
         async function appendRecord() {
             const response = await fetch("../api/books.php/insert/" + document.getElementById("aRcim").value+"/"+ document.getElementById("aRszerzo").value+"/"+ document.querySelector('input[name="elerheto"]:checked').value, {method: "POST"});
-            console.log(document.querySelector('input[name="elerheto"]:checked').value)
-            console.log("fasz")
+        }
+
+        async function editRecord() {
+            const response = await fetch("../api/books.php/edit/" + document.getElementById('azon').value +"/" + document.getElementById('newTitle').value + "/" + document.getElementById('newAuthor').value + "/" + document.querySelector('input[name="newelerheto"]:checked').value, {method: "PUT"});
         }
         
     </script>
@@ -60,22 +62,43 @@
     <form>
         <h1>Keresés szerző alapján:</h1>
         <label for="sAu">Szerző neve: </label>
-        <input type="text" id = "sAu">
+        <input type="text" id="sAu" required>
         <input type="button" value="Keresés" onclick="searchAuthor()">
+        
         <h1>Keresés cím alapján:</h1>
         <label for="sTi">Cím: </label>
-        <input type="text" id = "sTi">
+        <input type="text" id="sTi" required>
         <input type="button" value="Keresés" onclick="searchTitle()">
+        
         <h1>Új könyv felvétele:</h1>
         <label for="aRcim">Cím: </label>
-        <input type="text" id = "aRcim">
+        <input type="text" id="aRcim" required>
+        
         <label for="aRszerzo">Szerző: </label>
-        <input type="text" id = "aRszerzo">
-        <input type="radio" id="available" name="elerheto" value="available">
+        <input type="text" id="aRszerzo" required>
+        
+        <input type="radio" id="available" name="elerheto" value="available" required>
         <label for="available">Available</label><br>
-        <input type="radio" id="not_available" name="elerheto" value="not_available">
+        
+        <input type="radio" id="not_available" name="elerheto" value="not_available" required>
         <label for="not_available">Not Available</label><br>
+        
         <input type="button" value="Felvétel" onclick="appendRecord()">
+
+        <h1>Adat módosítása ID alapján:</h1>
+        <label for="azon">ID: </label>
+        <input type="text" id="azon" required>
+        <label for="newAuthor">Új szerző (ha szükséges): </label>
+        <input type="text" id="newAuthor">
+        <label for="newTitle">Új cím (ha szükséges): </label>
+        <input type="text" id="newTitle">
+        <label for="newTitle">Új elérhetőség (ha szükséges): </label>
+        <input type="radio" id="newavailable" name="newelerheto" value="available" required>
+        <label for="available">Available</label><br>
+        
+        <input type="radio" id="newnot_available" name="newelerheto" value="not_available" required>
+        <label for="not_available">Not Available</label><br>
+        <input type="button" value="Módosítás" onclick="editRecord()">
     </form>
     <h1>Eredmény</h1>
     
